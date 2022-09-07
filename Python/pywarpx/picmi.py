@@ -98,6 +98,13 @@ class Species(picmistandard.PICMI_Species):
         self.reflection_model_zhi = kw.pop('warpx_reflection_model_zhi', None)
         # self.reflection_model_eb = kw.pop('warpx_reflection_model_eb', None)
 
+        self.diffuse_model_xlo = kw.pop('warpx_diffuse_model_xlo', None)
+        self.diffuse_model_xhi = kw.pop('warpx_diffuse_model_xhi', None)
+        self.diffuse_model_ylo = kw.pop('warpx_diffuse_model_ylo', None)
+        self.diffuse_model_yhi = kw.pop('warpx_diffuse_model_yhi', None)
+        self.diffuse_model_zlo = kw.pop('warpx_diffuse_model_zlo', None)
+        self.diffuse_model_zhi = kw.pop('warpx_diffuse_model_zhi', None)
+
         # For the scraper buffer
         self.save_particles_at_xlo = kw.pop('warpx_save_particles_at_xlo', None)
         self.save_particles_at_xhi = kw.pop('warpx_save_particles_at_xhi', None)

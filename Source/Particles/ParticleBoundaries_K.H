@@ -7,9 +7,13 @@
 #ifndef PARTICLEBOUNDARIES_K_H_
 #define PARTICLEBOUNDARIES_K_H_
 
+#include <cmath>
+
 #include "ParticleBoundaries.H"
 
 #include <AMReX_AmrCore.H>
+#include <AMReX_RandomEngine.H>
+#include <AMReX_Random.H>
 
 namespace ApplyParticleBoundaries {
 
@@ -124,6 +128,22 @@ namespace ApplyParticleBoundaries {
         if (change_sign_ux) ux = -ux;
         if (change_sign_uy) uy = -uy;
         if (change_sign_uz) uz = -uz;
+
+        if (boundaries.diffuse_model_zhi) {
+            double u_mag = sqrt(ux*ux + uy*uy + uz*uz);
+            amrex::RandomEngine rd;
+            ux = amrex::Random(rd) * u_mag;
+            double sample = amrex::Random(rd);
+            if(sample > 0.5) {
+                ux = -ux;
+            }
+            uy = amrex::Random(rd) * sqrt(u_mag*u_mag - ux*ux);
+            sample = amrex::Random(rd);
+            if(sample > 0.5) {
+                uy = -uy;
+            }
+            uz = amrex::Random(rd) * sqrt(u_mag*u_mag - ux*ux - uy*uy) * -1;
+        }
     }
 
 }

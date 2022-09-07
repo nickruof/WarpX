@@ -22,6 +22,7 @@ struct ParticleBoundaries
     ParticleBoundaries () noexcept;
 
     void Set_reflect_all_velocities (bool flag);
+    void Set_diffuse_model(bool flag);
     void SetAll (ParticleBoundaryType bc);
 
     void SetBoundsX (ParticleBoundaryType bc_lo, ParticleBoundaryType bc_hi);
@@ -64,6 +65,12 @@ struct ParticleBoundaries
         amrex::ParserExecutor<1> reflection_model_zhi;
 
         bool reflect_all_velocities;
+        bool diffuse_model_xlo;
+        bool diffuse_model_xhi;
+        bool diffuse_model_ylo;
+        bool diffuse_model_yhi;
+        bool diffuse_model_zlo;
+        bool diffuse_model_zhi;
     };
     ParticleBoundariesData data;
 

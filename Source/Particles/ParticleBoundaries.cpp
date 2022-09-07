@@ -20,6 +20,17 @@ ParticleBoundaries::Set_reflect_all_velocities (bool flag)
 }
 
 void
+ParticleBoundaries::Set_diffuse_model(bool flag)
+{
+    data.diffuse_model_xlo = flag;
+    data.diffuse_model_xhi = flag;
+    data.diffuse_model_ylo = flag;
+    data.diffuse_model_yhi = flag;
+    data.diffuse_model_zlo = flag;
+    data.diffuse_model_zhi = flag;
+}
+
+void
 ParticleBoundaries::SetAll (ParticleBoundaryType bc)
 {
     data.xmin_bc = bc;
