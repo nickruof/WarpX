@@ -358,6 +358,7 @@ PhysicalParticleContainer::PhysicalParticleContainer (AmrCore* amr_core, int isp
     pp_boundary.query("reflect_all_velocities", flag);
     m_boundary_conditions.Set_reflect_all_velocities(flag);
 
+    bool diffuse_flag = false;
     pp_boundary.query("diffuse_model_xlo", diffuse_flag);
     pp_boundary.query("diffuse_model_xhi", diffuse_flag);
     pp_boundary.query("diffuse_model_ylo", diffuse_flag);

@@ -14,6 +14,7 @@
 #include <AMReX_AmrCore.H>
 #include <AMReX_RandomEngine.H>
 #include <AMReX_Random.H>
+#include <AMReX_Parser.H>
 
 namespace ApplyParticleBoundaries {
 
@@ -125,25 +126,21 @@ namespace ApplyParticleBoundaries {
             change_sign_uy = true;
             change_sign_uz = true;
         }
+        amrex::Real scale = amrex::Random(engine);
         if (change_sign_ux) ux = -ux;
         if (change_sign_uy) uy = -uy;
-        if (change_sign_uz) uz = -uz;
-
-        if (boundaries.diffuse_model_zhi) {
-            double u_mag = sqrt(ux*ux + uy*uy + uz*uz);
-            amrex::RandomEngine rd;
-            ux = amrex::Random(rd) * u_mag;
-            double sample = amrex::Random(rd);
-            if(sample > 0.5) {
-                ux = -ux;
-            }
-            uy = amrex::Random(rd) * sqrt(u_mag*u_mag - ux*ux);
-            sample = amrex::Random(rd);
-            if(sample > 0.5) {
-                uy = -uy;
-            }
-            uz = amrex::Random(rd) * sqrt(u_mag*u_mag - ux*ux - uy*uy) * -1;
+        //if (change_sign_uz) uz = -uz;
+        if (change_sign_uz) {
+            uz = -scale*uz;
+            ux = (1 - scale)*ux;
         }
+        // pick random ux and then parser function to calculate uz to preserve magnitude
+        // if (true) {
+        //     amrex::ParticleReal u_mag = sqrt(ux*ux + uz*uz);
+        //     amrex::Real theta =  amrex::Random(engine) * M_PI;
+        //     ux = u_mag * cos(theta);
+        //     uz = -u_mag * sin(theta);
+        // }
     }
 
 }
